@@ -103,11 +103,11 @@ def change_userinfo(request):
     user_form_changed = ChangeUserInfoForm(request.POST, instance=request.user)
     if user_form_changed.is_valid():
         user = user_form_changed.save()
-        user_form.username = user_form_changed.cleaned_data['username']
-        user_form.email = user_form_changed.cleaned_data['email']
+        user_form.username = user_form_changed.cleaned_data.get('username')
+        user_form.email = user_form_changed.cleaned_data.get('email')
         update_session_auth_hash(request, user)
         messages.success(request, 'Your info was successfully updated!')
-        return user_form
+        return user_form_changed
     else:
         messages.error(request, "Error")
         return user_form

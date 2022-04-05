@@ -44,10 +44,11 @@ function ButtonToggle() {
                 //console.log("Fixed");
        } else {
             if (window.confirm("Do wish to log the moment you left the last recorded parking spot?")) {
-                finalizeSpotinDB().then(response => initVars());
-                console.log("Released");
+                finalizeSpotinDB(true).then(response => initVars());
+                //console.log("Released");
             } else {
-                console.log("");
+                finalizeSpotinDB(false).then(response => initVars());
+                //console.log("");
             };
             recordButton.value = "Start parking here";
             myString = getContentString(0);
@@ -82,7 +83,8 @@ function saveSpotToDB(){
     });
 };
 
-function finalizeSpotinDB(){
+function finalizeSpotinDB(isYes){
+    isYes ? "do nothing" : PS_ID = 0;
     timestamp = new Date().toUTCString();
     var obj = { "timestamp": timestamp, "record_to_be_closed": PS_ID };
     var myJSON2 = JSON.stringify(obj);

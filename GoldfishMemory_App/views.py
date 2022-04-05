@@ -65,11 +65,12 @@ def finalize_parking_spot(request):
     if request.method == 'POST':
         data = json.loads(request.POST["myJSON2"])
         record_id = int(data.get("record_to_be_closed"))
-        my_record = ParkingSpot.objects.get(pk=record_id)
-        stoptime = getUTCTimestamp(data.get("timestamp"))
-        my_record.stop_parking = stoptime
-        my_record.parking_duration = (stoptime - my_record.start_parking)
-        my_record.save()
+        if record_id != 0:
+            my_record = ParkingSpot.objects.get(pk=record_id)
+            stoptime = getUTCTimestamp(data.get("timestamp"))
+            my_record.stop_parking = stoptime
+            my_record.parking_duration = (stoptime - my_record.start_parking)
+            my_record.save()
         #delete current session data
         try:
             del request.session["open_session"]
@@ -80,7 +81,6 @@ def finalize_parking_spot(request):
     else:
         messages.error(request, "An error occurred")
         return JsonResponse({'status': 'Unsuccessful'})
-    return HttpResponseBadRequest('Invalid request')
 
 class PSListView(LoginRequiredMixin, ListView):
     login_url = 'accounts/login/'
