@@ -82,6 +82,8 @@ def change_credentials(request):
         user_form = change_userinfo(request)
     elif request.method =='POST' and 'change_password' in request.POST:
         pw_form = change_password(request)
+        logout(request)
+        return redirect('Accounts_App:login')
     return render(request, 'accounts/change_cred.html', {'user_form': user_form, 'pw_form': pw_form})
 
 @login_required(login_url='/accounts/login/')

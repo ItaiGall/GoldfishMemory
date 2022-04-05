@@ -5,6 +5,13 @@
   <div class="wrapper">
     <h1 class="title is-3">Your History</h1>
 
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="is-active"><a href="#" aria-current="page">History</a></li>
+  </ul>
+  </nav>
+
     <div class="map" id="map">Loading...</div>
 
     <div id="tableWrapper">

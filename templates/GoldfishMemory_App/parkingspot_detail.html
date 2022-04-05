@@ -4,8 +4,16 @@
 {% block content %}
 
 <div class="wrapper">
-
     <h1 class="title is-4">Your Parking Spot on <time >{{ parkingspot.start_parking | date:'D d.M.Y, H:i' }}</time> </h1>
+
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{% url 'homepage' %}">Home</a></li>
+    <li><a href="{% url 'GoldfishMemory_App:parkingspot_list' %}">History</a></li>
+    <li class="is-active"><a href="#" aria-current="page">Details</a></li>
+  </ul>
+  </nav>
+
     <div class="map" id="map">Loading...</div>
       <table>
           <tr>
