@@ -26,7 +26,7 @@ def index(request):
 @csrf_protect
 def create_parking_spot(request):
     current_user = request.user
-    if request.is_ajax and request.method == 'POST':
+    if request.method == 'POST':
         data = json.loads(request.POST["myJSON"])
         ps = SaveParkingSpotForm()
         #save as commit=False to populate the form with json data before saving in DB
@@ -62,7 +62,7 @@ def create_parking_spot(request):
 @login_required(login_url='/accounts/login/')
 @csrf_protect
 def finalize_parking_spot(request):
-    if request.is_ajax and request.method == 'POST':
+    if request.method == 'POST':
         data = json.loads(request.POST["myJSON2"])
         record_id = int(data.get("record_to_be_closed"))
         my_record = ParkingSpot.objects.get(pk=record_id)
