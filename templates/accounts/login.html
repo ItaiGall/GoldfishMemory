@@ -1,0 +1,24 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<h1 class="title is-3">Log in</h1>
+{% include 'messages.html' %}
+<form class="site-form" action="{% url 'Accounts_App:login' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        <p><small style="color: grey">{{ field.help_text }}</small></p>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </p>
+    {% endfor %}
+    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+    <input class="button is-primary is-rounded is-medium is-focused" type="submit" value="Login">
+    <br>
+    <a href="{% url 'Accounts_App:signup' %}"><input class="button is-info is-light is-rounded is-medium is-focused" type="button" value="Sign up"></a>
+</form>
+{% endblock %}

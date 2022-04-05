@@ -1,0 +1,9 @@
+{% if messages %}
+  {% for message in messages %}
+    <article class="message is-primary">
+        <div class="alert alert-dismissible alert-success">
+            <strong {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</strong>
+        </div>
+    </article>
+ {% endfor %}
+{% endif %}

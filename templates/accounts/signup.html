@@ -1,0 +1,36 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% include 'messages.html' %}
+<div class="container">
+    <h1 class="title is-3">Signup</h1>
+    <p>{{ message }}</p>
+    <form class="site-form" action="/accounts/signup/" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        <p><small style="color: grey">{{ field.help_text }}</small></p>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </p>
+        {% endfor %}
+
+        {% csrf_token %}
+        {% for field in vehicle_form %}
+        <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+                <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+        </p>
+        {% endfor %}
+        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+        <button class="button is-primary" type="submit" >Create an account</button>
+    </form>
+</div>
+{% endblock %}

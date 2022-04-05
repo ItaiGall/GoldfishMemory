@@ -1,0 +1,49 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="wrapper">
+
+    <h1 class="title is-4">Your Parking Spot on <time >{{ parkingspot.start_parking | date:'D d.M.Y, H:i' }}</time> </h1>
+    <div class="map" id="map">Loading...</div>
+      <table>
+          <tr>
+            <td>In proximity to:</td>
+            <td>
+              <p id="address"><strong>{{ parkingspot.my_address }}</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>Arrived at parking spot:</td>
+            <td>
+              <p ><strong>{{ parkingspot.start_parking | date:'D d.M.Y, H:i' }}</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>Left parking spot:</td>
+            <td>
+              <p ><strong>{{ parkingspot.stop_parking | date:'D d.M.Y, H:i' }}</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>Total parking duration:</td>
+            <td>
+                <p ><strong><time>{{ parkingspot.parking_duration }}</time></strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>Geographic coordinates:</td>
+            <td>
+              <p id="ps_details"><strong>{{ parkingspot.my_geolocation }}</strong></p>
+            </td>
+          </tr>
+      </table>
+
+    <script type="text/javascript" src="{% static 'staticMap.js' %}"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+</div>
+{% endblock %}

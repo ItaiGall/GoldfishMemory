@@ -1,0 +1,27 @@
+{
+  "name": "goldfishmemory_project",
+  "version": "1.0.0",
+  "description": "package.json of GoldfishMemory",
+  "main": "index.js",
+  "scripts": {
+    "test": "unittest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ItaiGall/GoldfishMemory.git"
+  },
+  "keywords": [
+    "park",
+    "car",
+    "parking",
+    "spot",
+    "city",
+    "map"
+  ],
+  "author": "Itai G.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ItaiGall/GoldfishMemory/issues"
+  },
+  "homepage": "https://github.com/ItaiGall/GoldfishMemory#readme"
+}

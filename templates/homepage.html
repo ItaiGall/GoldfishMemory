@@ -1,0 +1,35 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'messages.html' %}
+<div id="home">
+    <form class="ajax" id="RawLocationDataForm" method="post">
+        {% csrf_token %}
+        <div class="map" id="map">Loading...</div>
+        <div id="open_session">{{open_session}}</div>
+        <div id="loc-info">
+            <p>Your current parking spot is:</p>
+            <p id="location">...</p>
+        </div>
+
+        {% if user %}
+            <input class="button is-success is-rounded is-medium is-focused" type="button" id="recordPark" value="Start parking here" onclick="ButtonToggle()">
+            <br>
+            <a href="{% url 'GoldfishMemory_App:parkingspot_list' %}"><input class="button is-info is-rounded is-medium is-focused" type="button" id="history"  value="Your previous parking spots"></a>
+        {% else %}
+            <a href="{% url 'Accounts_App:login'%}"><input class="button is-success is-rounded is-medium is-focused" type="button" value="Start parking here (Login required)"></a>
+            <br>
+            <a href="{% url 'Accounts_App:login' %}"><input class="button is-info is-rounded is-medium is-focused" type="button" value="Your previous parking spots (Login required)"></a>
+        {% endif %}
+    </form>
+
+    <script type="text/javascript" src="{% static 'geoposition.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&callback=init&libraries=&v=weekly"
+            async defer></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+</div>
+{% endblock %}

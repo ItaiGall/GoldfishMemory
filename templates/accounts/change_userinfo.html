@@ -1,0 +1,12 @@
+{% include 'messages.html' %}
+<form method="post">
+  {% csrf_token %}
+  {% for field in user_form %}
+        <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+        </p>
+  {% endfor %}
+  <input class="button is-info is-light is-rounded is-medium is-focused"
+                                                           name="change_userinfo" type="submit" value="Change user info">
+</form>

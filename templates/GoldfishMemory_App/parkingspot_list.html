@@ -1,0 +1,73 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="wrapper">
+    <h1 class="title is-3">Your History</h1>
+
+    <div class="map" id="map">Loading...</div>
+
+    <div id="tableWrapper">
+        {% if my_ps_list %}
+        <table id="myTable">
+        {% for ps in my_ps_list %}
+        <tbody>
+        <tr class="tableRow">
+          <td>
+            <a href="{{ ps.get_absolute_url }}"></a>
+          </td>
+          <td>
+            <a href="{{ ps.get_absolute_url }}">{{ ps.my_address }}</a>
+          </td>
+          <td>
+            <a href="{{ ps.get_absolute_url }}">{{ ps.start_parking | date:'D d.M.Y, H:i' }}</a>
+          </td>
+          <td>
+            <a href="{{ ps.get_absolute_url }}"><time>{{ ps.parking_duration }}</time></a>
+          </td>
+          <td>
+            <span id="coords" class="visuallyhidden">{{ ps.my_geolocation }}</span>
+          </td>
+          <td>
+            <span id="for_index" class="visuallyhidden">{{ forloop.counter }}</span>
+          </td>
+        </tr>
+        </tbody>
+        {% endfor %}
+        {% else %}
+            <p>You have no history yet.</p>
+        {% endif %}
+        </table>
+    </div>
+
+    {% if my_ps_list %}
+      <p><small>*Click a record for further details.</small></p>
+      <p><small>**Up to 100 records. After that the oldest record is overwritten by any new record.</small></p>
+    {% endif %}
+      <br>
+      <nav class="pagination" role="navigation" aria-label="pagination">
+        <span class="step-links">
+            <span id="start_index">{{page_obj.start_index}}</span>
+            {% if page_obj.has_previous %}
+                <a class="paginate button is-light" href="?page=1">&laquo; first</a>
+                <a class="paginate button is-light" href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a class="paginate button is-light" href="?page={{ page_obj.next_page_number }}">next</a>
+                <a class="paginate button is-light" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </nav>
+
+      <script type="text/javascript" src="{% static 'staticSummaryMap.js' %}"></script>
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&callback=initSumMap&libraries=&v=weekly"
+        async
+      ></script>
+  </div>
+{% endblock %}

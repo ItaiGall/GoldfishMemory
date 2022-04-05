@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goldfish Memory</title>
+    <script type="text/javascript" src="{% static 'clock.js' %}"></script>
+    <script type="text/javascript" src="{% static 'burger.js' %}"></script>
+    <script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'goldfish - small2.png' %}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+            <a href="{% url 'homepage' %}"><img id="logo" src="{% static 'goldfish.png' %}"></a>
+            <span class="navbar-item" id="time"></span>
+
+            <a role="button" class="navbar-burger is-hoverable" id="burger" aria-label="menu" aria-expanded="false"
+               data-target="burger-menu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+
+            <nav class="navbar-menu is-hidden-desktop is-boxed" id="burger-menu" hidden="true">
+                <ul>
+                    {% if user and not user.is_anonymous %}
+                    <li><a href="{% url 'Accounts_App:user_stats' %}" class="navbar-item"><b>Logged in as {{ user }}</b></a></li>
+                    <li><a class="navbar-item" href="{% url 'homepage' %}">Home</a></li>
+                    <li><a class="navbar-item" href="{% url 'GoldfishMemory_App:parkingspot_list' %}">History</a></li>
+                    <li><a class="navbar-item" href="{% url 'Accounts_App:change_credentials' %}">Change credentials</a></li>
+                    <li><a class="button is-danger is-light is-fullwidth" href="{% url 'Accounts_App:logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a class="navbar-item">Logged in as anonymous user</a></li>
+                    <li><a class="navbar-item" href="{% url 'homepage' %}">Home</a></li>
+                    <li><a class="navbar-item" href="{% url 'Accounts_App:login' %}">History (login required)</a></li>
+                    <li><a class="navbar-item" href="{% url 'Accounts_App:signup' %}">Signup</a></li>
+                    <li><a class="button is-primary is-light is-fullwidth" href="{% url 'Accounts_App:login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            </div>
+
+            <div id="navbarBasic" class="navbar-menu">
+            <div class="navbar-start" id="nav-list">
+                {% if user and not user.is_anonymous %}
+                    <a href="{% url 'Accounts_App:user_stats' %}" class="navbar-item">Logged in as {{ user }}</a>
+                    <a class="navbar-item" href="{% url 'homepage' %}">Home</a>
+                    <a class="navbar-item" href="{% url 'GoldfishMemory_App:parkingspot_list' %}">History</a>
+                {% else %}
+                    <a class="navbar-item">Logged in as anonymous user</a>
+                    <a class="navbar-item" href="{% url 'homepage' %}">Home</a>
+                    <a class="navbar-item" href="{% url 'Accounts_App:login' %}">History (login required)</a>
+                {% endif %}
+            </div>
+
+            <div class="navbar-end">
+                {% if user and not user.is_anonymous %}
+                <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="{% url 'Accounts_App:change_credentials' %}"><strong>Change credentials</strong></a>
+                    <form method="post" action="{% url 'Accounts_App:logout' %}">
+                        {% csrf_token %}
+                        <button class="button is-danger">Logout</button>
+                    </form>
+                </div>
+                </div>
+                {% else %}
+                <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="{% url 'Accounts_App:signup' %}"><strong>Sign up</strong></a>
+                    <a class="button is-light" href="{% url 'Accounts_App:login' %}">Log in</a>
+                </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p id="mycopyright">&#169; 2022<span id="copyright"></span></p>
+    </footer>
+
+    <script>
+    //global grecaptcha
+    grecaptcha.ready(function() {
+      grecaptcha.execute('{{recaptcha_site_key}}', {action: "/contact/"}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
+      });
+    });
+    </script>
+</body>
+</html>

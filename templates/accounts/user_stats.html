@@ -1,0 +1,40 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<h1 class="title is-3">User Stats</h1>
+{% include 'messages.html' %}
+<form>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Username:</td>
+        <td>{{user.username}}</td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td>{{user.email}}</td>
+      </tr>
+      <tr>
+        <td>Car ID affiliated with this user:</td>
+        <td>
+          {% for veh in my_vehicle %}
+          <span>{{veh.license_number}}</span>
+          {% endfor %}
+        </td>
+      </tr>
+      <tr>
+        <td>Joined Goldfish Memory on:</td>
+        <td>{{user.date_joined | date:'D d.M.Y, H:i'}}</td>
+      </tr>
+      <tr>
+        <td>Last login on:</td>
+        <td>{{user.last_login | date:'D d.M.Y, H:i'}}</td>
+      </tr>
+      <tr>
+        <td>No. of records for this user:</td>
+        <td>{{entries}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="{% url 'homepage' %}"><input class="button is-info is-light is-rounded is-medium is-focused" value="Return to homepage"></a>
+</form>
+{% endblock %}

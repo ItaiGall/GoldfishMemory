@@ -1,0 +1,12 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<div class="wrapper">
+    <h1 class="title is-3">Change your credentials</h1>
+    <div>
+        {% include 'accounts/change_userinfo.html' %}
+    </div>
+    <div>
+        {% include 'accounts/change_password.html' %}
+    </div>
+</div>
+{% endblock %}
