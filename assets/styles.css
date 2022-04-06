@@ -2,7 +2,6 @@
     width: 450px;
     height: 300px;
     overflow: auto;
-    margin: 20px;
 }
 
 #logo{
@@ -17,10 +16,6 @@ nav{
     background-color: transparent;
 }
 
-.navbar-item{
-
-}
-
 html {
   background-image: url('background.jpg');
   background-repeat: no-repeat;
@@ -31,8 +26,8 @@ input {
     margin: 10px;
     padding: 20px;
     width: 350px;
-
 }
+
 #delete_action{
     width:auto;
     visibility:hidden;
@@ -67,13 +62,14 @@ td {
 #tableWrapper{
     overflow-y: auto;
     overflow-x: auto;
-    height: 500px;
+    max-height: 500px;
     width:500px;
     margin-top:20px;
     margin-bottom: 30px;
 }
 #burger-menu{
     background-color: transparent;
+    width: 600px;
 }
 #loc-info{
     margin: 15px;

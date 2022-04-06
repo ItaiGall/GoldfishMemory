@@ -16,6 +16,9 @@
 
     <div id="tableWrapper">
         {% if my_ps_list %}
+        <p><small>*Click a record for further details.</small></p>
+        <p><small>**Up to 100 records. After that the oldest record is overwritten by any new record.</small></p>
+
         <table id="myTable">
         {% for ps in my_ps_list %}
         <tbody>
@@ -47,10 +50,6 @@
         </table>
     </div>
 
-    {% if my_ps_list %}
-      <p><small>*Click a record for further details.</small></p>
-      <p><small>**Up to 100 records. After that the oldest record is overwritten by any new record.</small></p>
-    {% endif %}
       <br>
       <nav class="pagination" role="navigation" aria-label="pagination">
         <span class="step-links">

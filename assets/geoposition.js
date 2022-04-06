@@ -110,8 +110,8 @@ function finalizeSpotinDB(isYes){
 
 function trackMe() {
     options = {
-        timeout: 30000,
-        maximumAge: 20000,
+        timeout: 7000,
+        maximumAge: 600000,
     };
     trackId = navigator.geolocation.watchPosition(showPosition, showError, options);
 };
