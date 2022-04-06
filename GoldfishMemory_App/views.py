@@ -3,7 +3,7 @@ from .forms import SaveParkingSpotForm
 from .models import ParkingSpot
 from django.views.generic import ListView, DetailView
 from django.conf import settings
-from .auxiliary_functions import convert_queryset_to_json
+from .auxiliary_functions import convert_queryset_to_json, getUTCTimestamp
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,7 +12,7 @@ import json
 from django.http import JsonResponse
 import django.contrib.messages as messages
 import datetime
-import pytz
+
 
 def index(request):
     if request.session.has_key("open_session"):
@@ -107,7 +107,3 @@ class PSDetailView(LoginRequiredMixin, DetailView):
         context = super(PSDetailView, self).get_context_data(**kwargs)
         context['maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
         return context
-
-def getUTCTimestamp(time_string):
-    return datetime.datetime.strptime(time_string, "%a, %d %b %Y %H:%M:%S %Z").replace(tzinfo=pytz.UTC)
-

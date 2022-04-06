@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate, logout, update_session_auth
 import django.contrib.messages as messages
 from .forms import SignUpForm, ChangeUserInfoForm, RegisterVehicleForm
 from GoldfishMemory_App.models import ParkingSpot, Vehicle
+from GoldfishMemory_App.auxiliary_functions import getCurrentTimezone
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import requests
@@ -38,6 +39,7 @@ def signup_view(request):
             authenticate(username=user.username, password=user.password)
             messages.success(request, 'Account created successfully')
             login(request, user)
+            applyLocalTimezoneInSettings()
             return redirect('homepage')
         else:
             messages.error(request, "A problem occurred during signup. Try again.")
@@ -60,6 +62,7 @@ def login_view(request):
             )
             if user is not None:
                 login(request, user)
+                applyLocalTimezoneInSettings()
                 messages.success(request, 'Hello {}! You have been logged in'.format(user.username))
                 return redirect('homepage')
             else:
@@ -130,3 +133,6 @@ def user_stats(request):
         return render(request, 'accounts/user_stats.html', { 'user': my_user, 'entries': entries, 'my_vehicle':my_vehicle })
     else:
         return render(request, 'accounts/login.html')
+
+def applyLocalTimezoneInSettings():
+    settings.TIME_ZONE = getCurrentTimezone()
