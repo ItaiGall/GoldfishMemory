@@ -68,7 +68,9 @@ class RegisterVehicleForm(forms.ModelForm):
             'minlength': '2',
             })
         self.fields['cookies_consent'].required = True
-        self.fields['cookies_consent'].help_text = 'By accepting you agree to "Goldfish Memory\'s" cookie policy for security tokens and session state'
+        self.fields['cookies_consent'].initial = True
+        self.fields['cookies_consent'].help_text = 'By accepting you agree to "Goldfish Memory\'s" cookie policy for security tokens and session state\n' \
+                                                   'and to save your current location to the secured database.'
         self.fields['cookies_consent'].attrs = {'id': 'consent'}
     class Meta:
         model = Vehicle

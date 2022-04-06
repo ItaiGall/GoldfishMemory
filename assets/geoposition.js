@@ -113,7 +113,9 @@ function trackMe() {
         timeout: 7000,
         maximumAge: 600000,
     };
-    trackId = navigator.geolocation.watchPosition(showPosition, showError, options);
+    trackId = navigator.geolocation.getCurrentPosition(showPosition, showError, options);
+    //previously the navigator was on "watchPosition" but I decided to drop the watch
+    //because it produced an overflow of requests with mobile devices, which constantly send new geoposition data
 };
 
 function clearTracking() {
